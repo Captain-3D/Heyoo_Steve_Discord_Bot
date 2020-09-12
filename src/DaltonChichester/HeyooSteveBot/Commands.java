@@ -19,7 +19,7 @@ public class Commands extends ListenerAdapter
             return;
         }
 
-        System.out.println("We received a discord message from " + event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
+        System.out.println("We received a message from " + event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
         String[] args = event.getMessage().getContentRaw().split("\\s");
         
         for(int i = 0; i < args.length; i++)
@@ -54,6 +54,13 @@ public class Commands extends ListenerAdapter
         	event.getChannel().sendTyping().queue();
             event.getChannel().sendMessage("Heyooo!").queue();
         }
+        
+
+	    if(args[0].equalsIgnoreCase("f"))
+	    {
+	        event.getChannel().sendTyping().queue();
+	        event.getChannel().sendMessage("F").queue();
+	    }
 		
 		if(args[0].equalsIgnoreCase(Main.prefix + "info"))
 		{
@@ -62,7 +69,7 @@ public class Commands extends ListenerAdapter
 			info.setDescription("The official Discord Bot for the Heyoo Thunder Channel.");
 			info.addField("Commands", "~info  =  help on commands and additional information.\n"
 									+ "~getID  =  gets your official Discord userID.\n" 
-									+ "~spam {@user} {amount}  =  pings user specified with the specified amount of times.\n" 
+									+ "~spam {message} {amount}  =  spams the message with the specified amount of times.\n" 
 									, false);
 			info.setColor(0xf45642);
 			info.setFooter("Created by Captain_3D");
@@ -74,6 +81,21 @@ public class Commands extends ListenerAdapter
 			info.clear();
 		}
 		
+		for(int i = 0; i < args.length; i++)
+        {
+			String string = "our";
+			if(args[i].equalsIgnoreCase("my"))
+			{
+				event.getChannel().sendTyping().queue();
+
+				for(int j = i+1; j < args.length; j++)
+		        {
+					string = string + " " +  args[j];
+		        }
+				event.getChannel().sendMessage(string).queue();
+			}
+        }
+		
 		if(args[0].equalsIgnoreCase(Main.prefix + "getID"))
 		{
 			event.getChannel().sendTyping().queue();
@@ -82,12 +104,36 @@ public class Commands extends ListenerAdapter
 		
 		if(args[0].equalsIgnoreCase(Main.prefix + "spam"))
 		{
-			for(int i = 0; i < Integer.parseInt(args[2]); i++)
+			try
 			{
-				event.getChannel().sendTyping().queue();
-	            event.getChannel().sendMessage(args[1]).queue();
+				for(int i = 0; i < Integer.parseInt(args[args.length -1]); i++)
+				{
+					String string = "";
+					event.getChannel().sendTyping().queue();
+	
+		            for(int j = 1; j < args.length-1; j++)
+		            {
+		            	string = string + " " +  args[j];
+		            }
+		            
+		            event.getChannel().sendMessage(string).queue();
+		        }
 			}
-			
+			catch(NumberFormatException e)
+			{
+				for(int i = 0; i < 5; i++)
+				{
+					String string = "";
+					event.getChannel().sendTyping().queue();
+	
+		            for(int j = 1; j < args.length; j++)
+		            {
+		            	string = string + " " +  args[j];
+		            }
+		            
+		            event.getChannel().sendMessage(string).queue();
+		        }
+			}
 		}
 		
 		if(args[0].equalsIgnoreCase(Main.prefix + "ping"))
@@ -215,13 +261,16 @@ public class Commands extends ListenerAdapter
 					FileWriter fWriter;
 					try 
 					{
-						fWriter = new FileWriter("filename.txt");
+						fWriter = new FileWriter("TrackerData.txt");
 						
 						for(int j = 0; j < 5; j++)
 						{
-							fWriter.write(temp[i] + "\n");
+							fWriter.write(temp[j] + "\n");
 						}
 						fWriter.close();
+						
+						event.getChannel().sendTyping().queue();
+				        event.getChannel().sendMessage("Successfully moved to new day").queue();
 					} 
 					catch (IOException e) 
 					{
@@ -270,13 +319,16 @@ public class Commands extends ListenerAdapter
 					FileWriter fWriter;
 					try 
 					{
-						fWriter = new FileWriter("filename.txt");
+						fWriter = new FileWriter("TrackerData.txt");
 						
 						for(int j = 0; j < 5; j++)
 						{
-							fWriter.write(temp[i] + "\n");
+							fWriter.write(temp[j] + "\n");
 						}
 						fWriter.close();
+						
+						event.getChannel().sendTyping().queue();
+				        event.getChannel().sendMessage("Successfully added win").queue();
 					} 
 					catch (IOException e) 
 					{
@@ -325,13 +377,17 @@ public class Commands extends ListenerAdapter
 					FileWriter fWriter;
 					try 
 					{
-						fWriter = new FileWriter("filename.txt");
+						fWriter = new FileWriter("TrackerData.txt");
 						
 						for(int j = 0; j < 5; j++)
 						{
-							fWriter.write(temp[i] + "\n");
+							fWriter.write(temp[j] + "\n");
 						}
 						fWriter.close();
+						
+						event.getChannel().sendTyping().queue();
+				        event.getChannel().sendMessage("Successfully added loss").queue();
+						
 					} 
 					catch (IOException e) 
 					{
