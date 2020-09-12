@@ -24,10 +24,11 @@ public class Main
 		String data = null;
         String token = null;
 		
-		while (scanner.hasNextLine()) {
-	        data = scanner.nextLine();
+		while (scanner.hasNextLine()) 
+		{
+	    	data = scanner.nextLine();
 	        token = data.replace(" ", "");
-	      }
+	    }
 
 		JDABuilder builder = new JDABuilder();
         builder.setToken(token);
@@ -37,6 +38,5 @@ public class Main
         // Register listeners
         builder.addEventListeners(new Commands());
         builder.build();
-		
 	}
 }

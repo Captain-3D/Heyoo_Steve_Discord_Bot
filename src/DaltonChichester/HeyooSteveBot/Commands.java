@@ -19,7 +19,7 @@ public class Commands extends ListenerAdapter
             return;
         }
 
-        System.out.println("We received a chat message from " + event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
+        System.out.println("We received a discord message from " + event.getAuthor().getName() + ": " + event.getMessage().getContentDisplay());
         String[] args = event.getMessage().getContentRaw().split("\\s");
         
         for(int i = 0; i < args.length; i++)
@@ -93,13 +93,13 @@ public class Commands extends ListenerAdapter
 		if(args[0].equalsIgnoreCase(Main.prefix + "ping"))
 		{
 			event.getChannel().sendTyping().queue();
-	        event.getChannel().sendMessage("pong").queue();
+	        event.getChannel().sendMessage("pong!").queue();
 			
 		}
 		
 		if(args[0].equalsIgnoreCase(Main.prefix + "tracker"))
 		{
-			if(event.getAuthor().getName() == "Captain_3D")
+			if(event.getAuthor().getId().equals("205312322527297537"))
 			{
 		        float tokens_required = 2000;
 		        float tokens_current = 200;
@@ -187,9 +187,9 @@ public class Commands extends ListenerAdapter
 			}
 		}
 		
-		if(args[0].equalsIgnoreCase(Main.prefix + "~Tracker_NewDay"))
+		if(args[0].equalsIgnoreCase(Main.prefix + "Tracker_NewDay"))
 		{
-			if(event.getAuthor().getName() == "Captain_3D")
+			if(event.getAuthor().getId().equals("205312322527297537"))
 			{
 		        Scanner scanner;
 				try 
@@ -243,9 +243,9 @@ public class Commands extends ListenerAdapter
 			}
 		}
 		
-		if(args[0].equalsIgnoreCase(Main.prefix + "~Tracker_addWin"))
+		if(args[0].equalsIgnoreCase(Main.prefix + "Tracker_addWin"))
 		{
-			if(event.getAuthor().getName() == "Captain_3D")
+			if(event.getAuthor().getId().equals("205312322527297537"))
 			{
 				Scanner scanner;
 				try 
@@ -298,9 +298,9 @@ public class Commands extends ListenerAdapter
 			}
 		}
 		
-		if(args[0].equalsIgnoreCase(Main.prefix + "~Tracker_addLoss"))
+		if(args[0].equalsIgnoreCase(Main.prefix + "Tracker_addLoss"))
 		{
-			if(event.getAuthor().getName() == "Captain_3D")
+			if(event.getAuthor().getId().equals("205312322527297537"))
 			{
 				Scanner scanner;
 				try 
