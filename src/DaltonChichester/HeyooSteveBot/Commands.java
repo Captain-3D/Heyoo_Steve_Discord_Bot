@@ -36,7 +36,9 @@ public class Commands extends ListenerAdapter
 	        if(args[i].equalsIgnoreCase("wacker"))
 	        {
 	        	event.getChannel().sendTyping().queue();
-	            event.getChannel().sendMessage(":regional_indicator_s: :regional_indicator_l: :regional_indicator_a: :regional_indicator_m: :regional_indicator_s:  :regional_indicator_t: :regional_indicator_a: :regional_indicator_b: :regional_indicator_l: :regional_indicator_e:").queue();
+	            event.getChannel().sendMessage(":regional_indicator_s: :regional_indicator_l: :regional_indicator_a: :regional_indicator_m:"
+	            							+ " :regional_indicator_s:  :regional_indicator_t: :regional_indicator_a: :regional_indicator_b:"
+	            							+ " :regional_indicator_l: :regional_indicator_e:").queue();
 	        }
         }
         
@@ -55,7 +57,15 @@ public class Commands extends ListenerAdapter
             event.getChannel().sendMessage("Heyooo!").queue();
         }
         
-
+        for(int i = 0; i < args.length; i++)
+        {
+	        if(args[i].equalsIgnoreCase("steve") || args[i].equalsIgnoreCase("steve.") || args[i].equalsIgnoreCase("steve?") || args[i].equalsIgnoreCase("steve!"))
+	        {
+	        	event.getChannel().sendTyping().queue();
+	            event.getChannel().sendMessage("Heyooo!").queue();
+	        }
+        }
+         
 	    if(args[0].equalsIgnoreCase("f"))
 	    {
 	        event.getChannel().sendTyping().queue();
@@ -70,6 +80,7 @@ public class Commands extends ListenerAdapter
 			info.addField("Commands", "~info  =  help on commands and additional information.\n"
 									+ "~getID  =  gets your official Discord userID.\n" 
 									+ "~spam {message} {amount}  =  spams the message with the specified amount of times.\n" 
+									+ "~tracker =  Authorised users only, shows calculations for prestige token tracker.\n" 
 									, false);
 			info.setColor(0xf45642);
 			info.setFooter("Created by Captain_3D");
@@ -81,6 +92,55 @@ public class Commands extends ListenerAdapter
 			info.clear();
 		}
 		
+		if(args[0].equalsIgnoreCase(Main.prefix + "leaderboards"))
+		{
+			if(args.length < 2)
+			{
+				EmbedBuilder info = new EmbedBuilder();
+				info.setTitle("Heyooo Steve Bot Leaderboards");
+				info.setDescription("The official leaderboards for friend competition.");
+				info.addField("Games", "Sonic: The Hedgehog\n", false);
+				info.addField("Commands", "~leaderboards [Game]\tTo view Games leaderboards.\n", false);
+				info.setColor(0xf45642);
+				
+				event.getChannel().sendTyping().queue();
+				event.getChannel().sendMessage(info.build()).queue();
+				
+				info.clear();
+			}
+			else if(args[1].equalsIgnoreCase("help"))
+			{
+				EmbedBuilder info = new EmbedBuilder();
+				info.setTitle("Heyooo Steve Bot Leaderboards");
+				info.setDescription("The official leaderboards for friend competition.");
+				info.addField("Games", "Sonic: The Hedgehog\n", false);
+				info.addField("Commands", "~leaderboards [Game]\tTo view Games leaderboards.\n", false);
+				info.setColor(0xf45642);
+				
+				event.getChannel().sendTyping().queue();
+				event.getChannel().sendMessage(info.build()).queue();
+				
+				info.clear();
+			}
+			else if(args[1].equalsIgnoreCase("Sonic"))
+			{
+				EmbedBuilder info = new EmbedBuilder();
+				info.setTitle("Sonic: The Hedgehog Leaderboards");
+				info.setDescription("The official leaderboards for friend competition.");
+				info.addField("Levels", "1-1", false);
+				info.setColor(0xf45642);
+				
+				event.getChannel().sendTyping().queue();
+				event.getChannel().sendMessage(info.build()).queue((message) -> {
+					message.addReaction("🗑").queue();
+					message.addReaction("⏪").queue();
+					message.addReaction("⏩").queue();
+				});
+				
+				info.clear();
+			}
+		}
+		
 		for(int i = 0; i < args.length; i++)
         {
 			String string = "our";
@@ -90,7 +150,22 @@ public class Commands extends ListenerAdapter
 
 				for(int j = i+1; j < args.length; j++)
 		        {
-					string = string + " " +  args[j];
+					if(args[j].contains("."))
+					{
+						string = string + " " +  args[j];
+						break;
+					}
+					else if(args[j].contains("?") || args[j].contains("!"))
+					{
+						string = string + " " +  args[j];
+						string = string.replace("?", ".");
+						string = string.replace("!", ".");
+						break;
+					}
+					else
+					{
+						string = string + " " +  args[j];
+					}
 		        }
 				event.getChannel().sendMessage(string).queue();
 			}
@@ -136,11 +211,43 @@ public class Commands extends ListenerAdapter
 			}
 		}
 		
+		if(args[0].equalsIgnoreCase(Main.prefix + "DecToHec"))
+		{
+		    int num = Integer.parseInt(args[1]);
+		        
+		    String str = "Decimal to Hexadecimal: ";
+		    str = str + Integer.toHexString(num);
+		      
+			event.getChannel().sendTyping().queue();
+	        event.getChannel().sendMessage(str).queue();
+		}
+		
+		if(args[0].equalsIgnoreCase(Main.prefix + "HecToDec"))
+		{
+			String digits = "0123456789ABCDEF";
+		    String s = args[1];
+		        
+		    String str = "Hexadecimal to Decimal: ";
+		      
+		    s = s.toUpperCase();
+            int val = 0;
+            for (int i = 0; i < s.length(); i++)
+            {
+                char c = s.charAt(i);
+                int d = digits.indexOf(c);
+                val = 16*val + d;
+            }
+		    
+            str = str + String.valueOf(val);
+            
+			event.getChannel().sendTyping().queue();
+	        event.getChannel().sendMessage(str).queue();
+		}
+		
 		if(args[0].equalsIgnoreCase(Main.prefix + "ping"))
 		{
 			event.getChannel().sendTyping().queue();
 	        event.getChannel().sendMessage("pong!").queue();
-			
 		}
 		
 		if(args[0].equalsIgnoreCase(Main.prefix + "tracker"))
@@ -184,7 +291,7 @@ public class Commands extends ListenerAdapter
 					float temp1 = ((tokens_required - mission_tokes) / days_left);
 					float temp2 = (((tokens_required - mission_tokes) - tokens_current) / days_left);
 					float temp3 = (((tokens_required - mission_tokes) - tokens_current) / days_left) - ((todays_wins * tokens_per_Win) + (todays_losses * tokens_per_Lose));
-					float temp4 = ((((tokens_required - mission_tokes) - tokens_current) / days_left) * days_past) - ((wins * tokens_per_Win)  + (losses * tokens_per_Lose));
+					float temp4 = (((((tokens_required - mission_tokes) - tokens_current) / 26) * days_past) - ((wins * tokens_per_Win)  + (losses * tokens_per_Lose)));
 
 					System.out.println("Sudo Avg Wins needed for overall day quota: " + temp1 / tokens_per_Win);
 					System.out.println("Calculated Avg Wins needed for overall day quota: " + temp2 / tokens_per_Win);
@@ -196,7 +303,7 @@ public class Commands extends ListenerAdapter
 					tracker.setTitle(event.getAuthor().getName() + " Prestige Tracker");
 					tracker.setDescription("Tracks and stores data for tokens required.");
 					tracker.addField("Data", "tokens_current: " + tokens_current
-											+ "\ntokens_left: " + (tokens_required - tokens_current) 
+											+ "\ntokens_left: " + ((tokens_required - tokens_current) - mission_tokes) 
 											+ "\ndays_left: " + days_left + "\n"
 											, false);
 					tracker.addField("Calculations", "Sudo Avg Wins needed for overall day quota: " + temp1 / tokens_per_Win
@@ -215,21 +322,17 @@ public class Commands extends ListenerAdapter
 					event.getChannel().sendMessage(tracker.build()).queue();
 					
 					tracker.clear();
-					
-					
 				} 
 		        catch (FileNotFoundException e) 
 		        {
 		        	event.getChannel().sendTyping().queue();
 			        event.getChannel().sendMessage("ERROR: FileNotFoundEception, Cound not find \"TrackerData.txt\"").queue();
 				}
-				
 			}
 			else
 			{
 				event.getChannel().sendTyping().queue();
 		        event.getChannel().sendMessage("Unauthorised user").queue();
-				
 			}
 		}
 		
@@ -346,7 +449,6 @@ public class Commands extends ListenerAdapter
 			{
 				event.getChannel().sendTyping().queue();
 		        event.getChannel().sendMessage("Unauthorised user").queue();
-				
 			}
 		}
 		
@@ -405,7 +507,6 @@ public class Commands extends ListenerAdapter
 			{
 				event.getChannel().sendTyping().queue();
 		        event.getChannel().sendMessage("Unauthorised user").queue();
-				
 			}
 		}
 	}

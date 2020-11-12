@@ -37,6 +37,7 @@ public class Main
         
         // Register listeners
         builder.addEventListeners(new Commands());
+        //builder.addEventListeners(new Reactions());
         builder.build();
 	}
 }
