@@ -1,0 +1,10 @@
+roarinworld
+animals
+cat
+dog
+100.0
+25.0
+OPEN
+Captain_3D,1,100.0
+Hh,2,20.0
+roarinworld,2,5.0
